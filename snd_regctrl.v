@@ -21,7 +21,6 @@ module snd_regctrl
    output [31:0] REG_MUSIC,
    output [31:0] REG_DELAY
    );
-    //あああ
 
     reg [ 1:0] CMD;
     reg [22:0] VRAMADR;

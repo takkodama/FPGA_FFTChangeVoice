@@ -21,11 +21,11 @@ module fft_top
    output signed [32:0] OUT3_IM
    );
 
-    //radixŠÔ‚ğ‚Â‚È‚®ü
+    //radix wire
    	wire signed [32:0] WX0_RE, WX1_RE, WX2_RE, WX3_RE;
 	wire signed [32:0] WX0_IM, WX1_IM, WX2_IM, WX3_IM;
 
-	//radixo—ÍŒãMULT‚Ü‚Å‚Â‚È‚®ü ––”ö‚Ì”š‚Í‚Ç‚ÌMULT‚É“ü‚é‚©
+	//MULT wire
    	wire signed [32:0] MX0_RE, MX1_RE, MX2_RE, MX3_RE;
 	wire signed [32:0] MX0_IM, MX1_IM, MX2_IM, MX3_IM;
 

@@ -7,10 +7,10 @@ module snd_buffer
    input [63:0] VIF_RDATA,
    input		FIFO_READ_R,
    input		FIFO_READ_L,
-   
+
    output       BUF_WREADY,
-   output [31:0] FIFO_DOUT_R, //32ビット
-   output [31:0] FIFO_DOUT_L //32ビット
+   output [31:0] FIFO_DOUT_R, //32 bit
+   output [31:0] FIFO_DOUT_L //32 bit
    );
 
    wire       rst;
@@ -29,7 +29,7 @@ module snd_buffer
    assign     rst = ~RST_X;
 
    // Xillinx FIFO
-   // FIFOへの出し入れ
+   // Input and output to FIFO
    fifo_64in32out_512depth u_fifo_right
 	 (
 	 //in
@@ -38,15 +38,15 @@ module snd_buffer
       .rd_en         (fifo_rd_r),
       .rst           (rst),
       .wr_clk        (CLK),
-      .wr_en         (fifo_wr_r),  
+      .wr_en         (fifo_wr_r),
 	  //out
       .dout          (fifo_dout_r),
-      .empty         (fifo_empty_r), 
-      .full          (fifo_full_r), 
+      .empty         (fifo_empty_r),
+      .full          (fifo_full_r),
 	  .valid         (fifo_valid_r),
       .wr_data_count (fifo_wcount_r)
 	  );
-   
+
    fifo_64in32out_512depth u_fifo_left
 	 (
 	 //in
@@ -56,42 +56,33 @@ module snd_buffer
       .rst           (rst),
       .wr_clk        (CLK),
       .wr_en         (fifo_wr_l),
-	  
+
 	  //out
       .dout          (fifo_dout_l),
-      .empty         (fifo_empty_l), 
-      .full          (fifo_full_l), 
+      .empty         (fifo_empty_l),
+      .full          (fifo_full_l),
 	  .valid         (fifo_valid_l),
       .wr_data_count (fifo_wcount_l)
 	  );
-   
-   /****************************************/
-   /* ToDo: 以下にFIFOを制御する論理を記述 */
-   /****************************************/
-   
+
 	/* --- fifo in --- */
 	//fifo_wr
 	assign fifo_wr_r = VIF_SNDRDATAVLD & !(fifo_full_r);
 	assign fifo_wr_l = VIF_SNDRDATAVLD & !(fifo_full_l);
-	
+
 	//fifo_rd
 	assign fifo_rd_r = FIFO_READ_R & !(fifo_empty_r); //empty排除
 	assign fifo_rd_l = FIFO_READ_L & !(fifo_empty_l); //empty排除
 
 	//fifo_din
 	assign fifo_din = VIF_RDATA;
-	
+
 	/* --- fifo out --- */
 	//fifo_wcount
-	//面倒なのでrightだけ
-	assign BUF_WREADY = (fifo_wcount_r < 9'd256); 
+	assign BUF_WREADY = (fifo_wcount_r < 9'd256);
 
 	//fifo_dout
 	assign FIFO_DOUT_R[31:0] = fifo_dout_r[31:0];
-	assign FIFO_DOUT_L[31:0] = fifo_dout_l[31:0];	
+	assign FIFO_DOUT_L[31:0] = fifo_dout_l[31:0];
 
 endmodule // dsp_buffer
-
-
-
-   
