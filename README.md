@@ -10,13 +10,15 @@
 
 ## Specifications
 
+![か](https://raw.githubusercontent.com/shartsu/FPGA_FFTChangeVoice/master/images/s1.png)
+
 ## Presentation Movie
 
 **筑波大学COJT第4期ハードエンジニアリング分野成果発表会**
 
 * 10:31~
 
-[![IMAGE ALT TEXT HERE](https://raw.github.com/wiki/shartsu/FPGA_FFTChangeVoice/images/mov.png)](https://www.youtube.com/watch?v=R6EtG7UaVgo#t=10m31s)
+[![IMAGE ALT TEXT HERE](https://raw.githubusercontent.com/shartsu/FPGA_FFTChangeVoice/master/images/mov.png)](https://www.youtube.com/watch?v=R6EtG7UaVgo#t=10m31s)
 
 ## Operating environment
 -  [ハードウェアコース カリキュラム](http://inf.tsukuba.ac.jp/ET-COJT/curriculum/)  を参照
