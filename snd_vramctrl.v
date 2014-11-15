@@ -16,85 +16,76 @@ module snd_vramctrl
    output reg    PLAY_NOW
    );
 
-   reg[22:0] addcount; //読んだ回数
-   reg	endflg; //曲が終了したらお知らせ
-   
-	//ステート割り付け
+   reg[22:0] addcount; //read timing
+   reg	endflg; //flag of music end
+
+	// state values
 	reg [2:0] state, nextState;
 	parameter S_IDLE  = 3'b000;
 	parameter S_PLAY  = 3'b001;
 	parameter S_PAUSE = 3'b010;
 	parameter S_WAIT  = 3'b011;
 	parameter S_END	  = 3'b100;
-	
-	//MUSICをいれてaddcountがdatasizeよりも大きければ1曲終了
-	
-	//play状態ならばリクエスト
+
+	//send a request if state == play
 	assign SND_VRAMREQ = (state == S_PLAY) && BUF_WREADY;
-	
-	//REG_VRAMADR + 読んだ回数
+
+	//REG_VRAMADR + read timing
 	assign SND_VRAMADR = {REG_VRAMADR + addcount};
-	
-	/* 未使用 */
-	// PLAY_NOW ... ステートがplay状態の時に外部に出す信号
+
+	/* not used */
+	// PLAY_NOW ... output singnal if state == play
 	always @ (posedge CLK or negedge RST_X) begin
         if( !RST_X )
 			PLAY_NOW <= 1'b0;
- 		else if(state == S_PLAY) 
+ 		else if(state == S_PLAY)
 			PLAY_NOW <= 1'b1;
-		else 
-			PLAY_NOW <= 1'b0; 		
+		else
+			PLAY_NOW <= 1'b0;
 	end
-	
+
 	// addcount
 	always @ (posedge CLK or negedge RST_X) begin
         if( !RST_X )
 			addcount <= 23'b0;
 		else if(/*state == S_PLAY && */ addcount == (REG_MUSIC))
-			addcount <= 23'b0;	
-		//else if(/*state == S_PLAY && */ addcount > (REG_MUSIC))
-		//	addcount <= 23'b0;		
- 		else if((SND_VRAMREQ == 1)&&(VIF_SNDACK == 1)) 
+			addcount <= 23'b0;
+ 		else if((SND_VRAMREQ == 1)&&(VIF_SNDACK == 1))
 			addcount <= addcount + 23'b1;
-		//else if(/*state == S_PLAY*/ &&  addcount > (REG_MUSIC))
-		//	addcount <= 23'b0;
-		
 	end
-	
+
 	// endflg
 	always @ (posedge CLK or negedge RST_X) begin
         if( !RST_X )
 			endflg <= 1'b0;
-		//else if(state == S_PLAY && addcount > REG_MUSIC) 
- 		//else if(state == S_PLAY && addcount == REG_MUSIC) 
-		else if(state == S_PLAY && (addcount+1) == REG_MUSIC)  //ずれ補正のため-1
+		else if(state == S_PLAY && (addcount+1) == REG_MUSIC)  // -1 to fix gap
 			endflg <= 1'b1;
-		else 
-			endflg <= 1'b0; 		
+		else
+			endflg <= 1'b0;
 	end
-	
-	// ステートFF
+
+	// state FF
     always @( posedge CLK, negedge RST_X ) begin
        if( !RST_X )
            state <= S_IDLE;
        else
            state <= nextState;
     end
-	
-	// ステート遷移条件記述
+
+	// state machine
 	always @* begin
 		case( state )
 			S_IDLE :
 				if (REG_CMD == 2'b01) nextState <= S_PLAY;
 				else nextState <= S_IDLE;
-				
+
 			S_PLAY : //001
 				if (REG_CMD == 2'b11) nextState <= S_IDLE; //停止
 				else if( REG_CMD == 2'b10 ) nextState <= S_PAUSE;
-				
-				//曲終了、ループなし -> end
+
+				//music end && not loop -> end
 				else if( endflg == 1'b1 && REG_LOOP == 1'b0 ) nextState <= S_END;
-				//曲終了、ループあり -> play
+				//music end && loop -> play
 				//else if( endflg == 1'b1 && REG_LOOP == 1'b1 ) nextState <= S_IDLE;
 				else if( endflg == 1'b1 && REG_LOOP == 1'b1 ) nextState <= S_PLAY;
 
@@ -105,21 +96,17 @@ module snd_vramctrl
 				if (REG_CMD == 2'b01) nextState <= S_PLAY;
 				else if(REG_CMD == 2'b11) nextState <= S_IDLE;
 				else nextState <= S_PAUSE;
-				
+
 			S_WAIT : //011
 				if ( BUF_WREADY == 1'b1 ) nextState <= S_PLAY;
 				else nextState <= S_WAIT;
-				
+
 			S_END :	//100
 				if( REG_CMD != 2'b01 ) nextState <= S_IDLE;
 				else nextState <= S_END;
-					
 			default  :
 				nextState <= S_IDLE;
 		endcase
 	end
-	
-	
-endmodule // dsp_vramctrl
 
-   
+endmodule
