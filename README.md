@@ -10,7 +10,20 @@
 
 ## Specifications
 
-![か](https://raw.githubusercontent.com/shartsu/FPGA_FFTChangeVoice/master/images/s1.png)
+**FFTをハードウェア化するために、FFT計算行列を回路で実現する**
+![](https://raw.githubusercontent.com/shartsu/FPGA_FFTChangeVoice/master/images/s1.png)
+
+**バタフライ演算(N=4)を用いて実装を行った**
+![](https://raw.githubusercontent.com/shartsu/FPGA_FFTChangeVoice/master/images/s2.png)
+
+**回路全体図**
+![](https://raw.githubusercontent.com/shartsu/FPGA_FFTChangeVoice/master/images/c1.png)
+
+**回路内部の設計図**
+![](https://raw.githubusercontent.com/shartsu/FPGA_FFTChangeVoice/master/images/c2.png)
+
+**ステートマシン設計図**
+![](https://raw.githubusercontent.com/shartsu/FPGA_FFTChangeVoice/master/images/c3.png)
 
 ## Presentation Movie
 
@@ -22,9 +35,6 @@
 
 ## Operating environment
 -  [ハードウェアコース カリキュラム](http://inf.tsukuba.ac.jp/ET-COJT/curriculum/)  を参照
-
-## How to use?
-- Coming soon...
 
 ## License
 - CC by 3.0
