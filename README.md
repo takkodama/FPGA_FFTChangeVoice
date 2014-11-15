@@ -8,6 +8,15 @@
 - 自身の声を高いピッチ、低いピッチに変更して聞く事が可能
 - 音声の変換には高速フーリエ変換(FFT)を適用した
 
+## Specifications
+
+## Presentation Movie
+
+**筑波大学COJT第4期ハードエンジニアリング分野成果発表会**
+
+* 10:31~
+
+[![IMAGE ALT TEXT HERE](https://raw.github.com/wiki/shartsu/FPGA_FFTChangeVoice/images/mov.png)](https://www.youtube.com/watch?v=R6EtG7UaVgo#t=10m31s)
 
 ## Operating environment
 -  [ハードウェアコース カリキュラム](http://inf.tsukuba.ac.jp/ET-COJT/curriculum/)  を参照
