@@ -1,13 +1,8 @@
 # FPGA_FFTChangeVoice
 
-- (En) 
-- (Ja) [筑波大学情報学群 組み込み技術キャンパスOJT](http://inf.tsukuba.ac.jp/ET-COJT/) [ハードウェアコース](http://inf.tsukuba.ac.jp/ET-COJT/curriculum/) 4期の自由課題にて開発した、FPGA回路上で動作するボイスチェンジャー
+ [筑波大学情報学群 組み込み技術キャンパスOJT](http://inf.tsukuba.ac.jp/ET-COJT/) [ハードウェアコース](http://inf.tsukuba.ac.jp/ET-COJT/curriculum/) 4期の自由課題にて開発した、FPGA回路上で動作するボイスチェンジャー
 
 ## Features
-
-(En)
-
-(Ja)
 
 - 音声をマイクから入力⇒変換し、リアルタイムで面白ボイスを再生する
 - 自身の声を高いピッチ、低いピッチに変更して聞く事が可能
@@ -15,7 +10,7 @@
 
 
 ## Operating environment
-- Coming soon...
+-  [ハードウェアコース カリキュラム](http://inf.tsukuba.ac.jp/ET-COJT/curriculum/)  を参照
 
 ## How to use?
 - Coming soon...
@@ -25,4 +20,7 @@
 
 ## Acknowledgments
 - [Verilog: FFT With 32K-Point Transform Length](http://www.altera.com/support/examples/verilog/ver-fft-32k.htmlt)
-
+- [筑波大学情報学群 組み込み技術キャンパスOJT カリキュラム](http://inf.tsukuba.ac.jp/ET-COJT/curriculum/)
+- [ハードにできることはハードでやる、それが僕らのこだわり
+僕らがリアルなものづくりを志したワケ - 日経テクノロジーオンライン](
+http://techon.nikkeibp.co.jp/article/COLUMN/20141028/385300/)
