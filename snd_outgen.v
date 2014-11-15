@@ -7,27 +7,25 @@ module snd_outgen
    input 		SND_LRCLK,
    input [ 6:0] LRCLK_COUNT,
    //input [31:0] FIFO_DOUT,
-   
+
    input [15:0] L_SNDDATA,
    input [15:0] R_SNDDATA,
-   
    input [ 1:0] REG_CMD,
    input [31:0] REG_STATUS,
-   input [31:0]  REG_DELAY,     
+   input [31:0]  REG_DELAY,
 
    output reg FIFO_READ_R,
    output reg FIFO_READ_L,
-   output reg SND_DOUT //1ビットずつ出す
+   output reg SND_DOUT //output 1bit one by one
    );
-   
-   	wire[6:0] lrclk_count; //0-63 7ビット
+
+   	wire[6:0] lrclk_count; //0-63 7bit
 	assign lrclk_count = LRCLK_COUNT;
-	reg [4:0] half_count; //0-15 5ビット
+	reg [4:0] half_count; //0-15 5bit
 
 	reg [15:0] L_SNDDATA_DE, R_SNDDATA_DE;
 	wire [15:0]  L_SNDDATA_OUT, R_SNDDATA_OUT;
-	//reg [15:0]  DE_COUNT; //MAX 65535
-	
+
 	//右delayデータ
 	always @(negedge SND_LRCLK or negedge RST_X) begin 
 		if(!RST_X) 

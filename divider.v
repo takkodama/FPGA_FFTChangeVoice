@@ -1,5 +1,3 @@
-// SAITO Original //////////////////////////////////////////////////////////////////////////////////
-
 module hsd_divider
 (
 	input [20:0]  INPUT_0,
@@ -2007,4 +2005,4 @@ assign tmp_answer[30] = 1'd0;
 
 assign ANSWER = (tmp_answer & {5'd31{plus}}) | (((~tmp_answer)+1'd1) & {5'd31{(~plus)}});
 
-endmodule 
+endmodule
